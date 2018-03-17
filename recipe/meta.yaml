@@ -17,15 +17,15 @@ build:
   script:
     - ./configure --prefix="{{ PREFIX }}"
     - make -j${NUM_CPUS}
-    - make check -j${NUM_CPUS}
+    - make check -j
     - make install
 
 requirements:
   build:
     - toolchain
-    - gettext  # [osx]
+    - gettext
   run:
-    - gettext  # [osx]
+    - gettext
 
 test:
   commands:
