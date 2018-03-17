@@ -23,6 +23,9 @@ build:
 requirements:
   build:
     - toolchain
+    - gettext  # [osx]
+  run:
+    - gettext  # [osx]
 
 test:
   commands:
