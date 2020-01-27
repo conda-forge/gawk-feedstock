@@ -25,7 +25,7 @@ requirements:
     - make  # [unix]
   host:
     - gettext   # [osx]
-    - readline  # [osx]
+    - readline
 
 test:
   commands:
