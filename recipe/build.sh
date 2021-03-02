@@ -19,7 +19,7 @@ make -j${CPU_COUNT} AM_V=99
 rm test/localenl.*
 
 # These tests fail under emulation, still run them but ignore their result
-if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
   if [[ ${target_platform} == linux-aarch64 ]]; then
     make check || true
   elif [[ ${target_platform} == linux-ppc64le ]]; then
