@@ -8,9 +8,9 @@ package:
 source:
   - url: https://ftp.gnu.org/gnu/{{ name }}/{{ name }}-{{ version }}.tar.gz
     sha256: 6168d8d1dc8f74bd17d9dc22fa9634c49070f232343b744901da15fb4f06bffd
-    patches:
-      - 0004-Fix-AM_TEST-no-more-or-localenl.patch
-      - 0005-Fix-IN_TEST-no-more-or-localenl.patch
+    #patches:
+    #  - 0004-Fix-AM_TEST-no-more-or-localenl.patch
+    #  - 0005-Fix-IN_TEST-no-more-or-localenl.patch
   - url: http://git.savannah.gnu.org/cgit/{{ name }}.git/plain/bootstrap.sh?h={{ name }}-{{ version }}
     sha256: 34fef05a25afdbe00edeffd1defa6d0578257651454fa2295d03db15b88358b3
 
