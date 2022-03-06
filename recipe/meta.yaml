@@ -13,6 +13,7 @@ source:
       - 0005-Fix-IN_TEST-no-more-or-localenl.patch
   - url: http://git.savannah.gnu.org/cgit/{{ name }}.git/plain/bootstrap.sh?h={{ name }}-{{ version }}
     sha256: 34fef05a25afdbe00edeffd1defa6d0578257651454fa2295d03db15b88358b3
+    fn: bootstrap.sh
 
 
 build:
