@@ -21,8 +21,9 @@ build:
 
 requirements:
   build:
-    - gnuconfig  # [unix]
+    - m2-git     # [win]
     - autotools_clang_conda  # [win]
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - make  # [unix]
   host:
