@@ -11,17 +11,21 @@ source:
     patches:
       - 0004-Fix-AM_TEST-no-more-or-localenl.patch
       - 0005-Fix-IN_TEST-no-more-or-localenl.patch
+      - 0006-conditionally_disable_langinfo.patch
   - url: http://git.savannah.gnu.org/cgit/{{ name }}.git/plain/bootstrap.sh?h={{ name }}-{{ version }}
     sha256: 34fef05a25afdbe00edeffd1defa6d0578257651454fa2295d03db15b88358b3
+    fn: bootstrap.sh
 
 
 build:
   number: 0
-  skip: true  # [win]
+  skip: true  # [not win]
 
 requirements:
   build:
-    - gnuconfig  # [unix]
+    - m2-git     # [win]
+    - autotools_clang_conda  # [win]
+    - gnuconfig
     - {{ compiler('c') }}
     - make  # [unix]
   host:
@@ -37,7 +41,7 @@ test:
 
 about:
   home: https://www.gnu.org/software/gawk/
-  license: GPL-3.0
+  license: GPL-3.0-or-later
   license_family: GPL
   license_file: COPYING
   summary: |

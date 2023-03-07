@@ -1,0 +1,40 @@
+diff --git a/support/regcomp.c b/support/regcomp.c
+index b607c853..2d232c3e 100644
+--- a/support/regcomp.c
++++ b/support/regcomp.c
+@@ -841,6 +841,13 @@ init_dfa (re_dfa_t *dfa, size_t pat_len)
+     dfa->is_utf8 = 1;
+   dfa->map_notascii = (_NL_CURRENT_WORD (LC_CTYPE, _NL_CTYPE_MAP_TO_NONASCII)
+ 		       != 0);
++#else
++#ifndef HAVE_LANGINFO_CODESET
++  if (dfa->mb_cur_max == 6
++      && strcmp (_NL_CURRENT (LC_CTYPE, _NL_CTYPE_CODESET_NAME), "UTF-8") == 0)
++    dfa->is_utf8 = 1;
++  dfa->map_notascii = (_NL_CURRENT_WORD (LC_CTYPE, _NL_CTYPE_MAP_TO_NONASCII)
++		       != 0);
+ #else
+   codeset_name = nl_langinfo (CODESET);
+   if ((codeset_name[0] == 'U' || codeset_name[0] == 'u')
+@@ -852,6 +859,7 @@ init_dfa (re_dfa_t *dfa, size_t pat_len)
+   /* We check exhaustively in the loop below if this charset is a
+      superset of ASCII.  */
+   dfa->map_notascii = 0;
++#endif
+ #endif
+ 
+   if (dfa->mb_cur_max > 1)
+diff --git a/support/regex_internal.h b/support/regex_internal.h
+index 57a455b1..8c179389 100644
+--- a/support/regex_internal.h
++++ b/support/regex_internal.h
+@@ -25,7 +25,9 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
++#ifdef HAVE_LANGINFO_CODESET
+ #include <langinfo.h>
++#endif
+ #include <locale.h>
+ #include <wchar.h>
+ #include <wctype.h>
