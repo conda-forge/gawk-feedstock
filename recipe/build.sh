@@ -1,7 +1,4 @@
-#!/bin/bash
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./extension/build-aux
-cp $BUILD_PREFIX/share/gnuconfig/config.* .
+#!/usr/bin/env bash
 set -eux
 
 # Ensure the timestamp dependencies do not cause us to need
@@ -11,8 +8,9 @@ mv "bootstrap.sh?h=${PKG_NAME}-${PKG_VERSION}" bootstrap.sh
 chmod +x ./bootstrap.sh
 ./bootstrap.sh
 
-./configure --prefix="${PREFIX}" \
-            --with-readline="${PREFIX}"
+./configure \
+  --prefix="${PREFIX}" \
+  --with-readline="${PREFIX}"
 
 make -j${CPU_COUNT} AM_V=99
 

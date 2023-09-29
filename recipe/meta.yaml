@@ -1,17 +1,15 @@
-{% set name = "gawk" %}
 {% set version = "5.2.2" %}
 
 package:
-  name: {{ name|lower }}
+  name: gawk
   version: {{ version }}
 
 source:
-  - url: https://ftp.gnu.org/gnu/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  - url: https://ftp.gnu.org/gnu/gawk/gawk-{{ version }}.tar.gz
     sha256: 945aef7ccff101f20b22a10802bc005e994ab2b8ea3e724cc1a197c62f41f650
     patches:
-      - 0004-Fix-AM_TEST-no-more-or-localenl.patch
-      - 0005-Fix-IN_TEST-no-more-or-localenl.patch
-  - url: http://git.savannah.gnu.org/cgit/{{ name }}.git/plain/bootstrap.sh?h={{ name }}-{{ version }}
+      - 0006-no-more-or-localenl.patch
+  - url: http://git.savannah.gnu.org/cgit/gawk.git/plain/bootstrap.sh?h=gawk-{{ version }}
     sha256: 34fef05a25afdbe00edeffd1defa6d0578257651454fa2295d03db15b88358b3
 
 
@@ -21,12 +19,20 @@ build:
 
 requirements:
   build:
-    - gnuconfig  # [unix]
     - {{ compiler('c') }}
-    - make  # [unix]
+    - coreutils
+    - gnuconfig
+    - grep
+    - make
+    - sed
   host:
-    - gettext   # [osx]
-    - readline  # [osx]
+    - gettext
+    - gmp
+    - mpfr
+    - readline
+  run:
+    - gmp
+    - mpfr
 
 test:
   commands:
