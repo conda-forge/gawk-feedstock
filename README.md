@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gawk-feedstock/
 
 Home: https://www.gnu.org/software/gawk/
 
-Package license: GPL-3.0
+Package license: GPL-3.0-or-later
 
 Summary: The awk utility interprets a special-purpose programming language that
 makes it easy to handle simple data-reformatting jobs.
