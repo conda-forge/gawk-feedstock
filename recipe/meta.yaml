@@ -13,9 +13,8 @@ source:
   - url: http://git.savannah.gnu.org/cgit/gawk.git/plain/bootstrap.sh?h=gawk-{{ version }}
     sha256: 34fef05a25afdbe00edeffd1defa6d0578257651454fa2295d03db15b88358b3
 
-
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
