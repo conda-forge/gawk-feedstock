@@ -1,4 +1,4 @@
-{% set version = "5.2.2" %}
+{% set version = "5.3.0" %}
 
 package:
   name: gawk
@@ -6,7 +6,7 @@ package:
 
 source:
   - url: https://ftp.gnu.org/gnu/gawk/gawk-{{ version }}.tar.gz
-    sha256: 945aef7ccff101f20b22a10802bc005e994ab2b8ea3e724cc1a197c62f41f650
+    sha256: 378f8864ec21cfceaa048f7e1869ac9b4597b449087caf1eb55e440d30273336
     patches:
       - 0006-no-more-or-localenl.patch
       - 0007-osx-map-anonymous.patch  # [osx]
@@ -14,7 +14,7 @@ source:
     sha256: 34fef05a25afdbe00edeffd1defa6d0578257651454fa2295d03db15b88358b3
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
 
 requirements:
