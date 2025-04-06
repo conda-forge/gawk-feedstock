@@ -12,7 +12,7 @@ chmod +x ./bootstrap.sh
   --prefix="${PREFIX}" \
   --with-readline="${PREFIX}"
 
-make -j${CPU_COUNT} AM_V=99
+make "-j${CPU_COUNT}" AM_V=99
 
 rm test/localenl.*
 
