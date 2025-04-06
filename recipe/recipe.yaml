@@ -15,7 +15,8 @@ source:
       - 0006-no-localenl.patch
       - if: osx
         then: 0007-osx-map-anonymous.patch
-  - url: http://git.savannah.gnu.org/cgit/gawk.git/plain/bootstrap.sh?h=gawk-${{ version }}
+  - file_name: bootstrap-${{ version }}.sh
+    url: http://git.savannah.gnu.org/cgit/gawk.git/plain/bootstrap.sh?h=gawk-${{ version }}
     sha256: 34fef05a25afdbe00edeffd1defa6d0578257651454fa2295d03db15b88358b3
 
 build:
@@ -31,8 +32,8 @@ requirements:
     - grep
     - make
     - sed
-    - util-linux
   host:
+    - automake
     - gettext
     - gmp
     - mpfr
