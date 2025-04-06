@@ -1,0 +1,146 @@
+diff --git a/pc/Makefile.tst b/pc/Makefile.tst
+index dd74768..60c5b6b 100644
+--- a/pc/Makefile.tst
++++ b/pc/Makefile.tst
+@@ -192,7 +192,7 @@ BASIC_TESTS = \
+ 	zero2 zeroe0 zeroflag
+ 
+ UNIX_TESTS = \
+-	fflush getlnhd localenl pid pipeio1 pipeio2 poundbang rtlen rtlen01 \
++	fflush getlnhd pid pipeio1 pipeio2 poundbang rtlen rtlen01 \
+ 	space strftlng
+ 
+ GAWK_EXT_TESTS = \
+@@ -312,7 +312,7 @@ NEED_PMA = pma
+ NEED_CSV = csv1 csv2 csv3 csvodd
+ 
+ # Lists of tests that run a shell script
+-RUN_SHELL = exit fflush localenl modifiers next randtest rtlen rtlen01
++RUN_SHELL = exit fflush modifiers next randtest rtlen rtlen01
+ 
+ # List of the tests which fail with EXIT CODE 1
+ FAIL_CODE1 = \
+@@ -2690,11 +2690,6 @@ getlnhd:
+ 	@-AWKPATH="$(srcdir)" $(AWK) -f $@.awk  >_$@ 2>&1 || echo EXIT CODE: $$? >>_$@
+ 	@-$(CMP) "$(srcdir)"/$@.ok _$@ && rm -f _$@
+ 
+-localenl:
+-	@echo $@
+-	@-$(LOCALES) AWK="$(AWKPROG) $(GAWK_TEST_ARGS)" "$(srcdir)"/$@.sh  > _$@ 2>&1 || echo EXIT CODE: $$? >>_$@
+-	@-$(CMP) "$(srcdir)"/$@.ok _$@ && rm -f _$@
+-
+ rtlen:
+ 	@echo $@
+ 	@-$(LOCALES) AWK="$(AWKPROG) $(GAWK_TEST_ARGS)" "$(srcdir)"/$@.sh  > _$@ 2>&1 || echo EXIT CODE: $$? >>_$@
+diff --git a/test/Makefile.am b/test/Makefile.am
+index 41750d7..8092fbb 100644
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -742,8 +742,6 @@ EXTRA_DIST = \
+ 	litoct.awk \
+ 	litoct.in \
+ 	litoct.ok \
+-	localenl.ok \
+-	localenl.sh \
+ 	longsub.awk \
+ 	longsub.in \
+ 	longsub.ok \
+@@ -1596,7 +1594,7 @@ BASIC_TESTS = \
+ 	zero2 zeroe0 zeroflag
+ 
+ UNIX_TESTS = \
+-	fflush getlnhd localenl pid pipeio1 pipeio2 poundbang rtlen rtlen01 \
++	fflush getlnhd pid pipeio1 pipeio2 poundbang rtlen rtlen01 \
+ 	space strftlng
+ 
+ GAWK_EXT_TESTS = \
+@@ -1715,7 +1713,7 @@ NEED_PMA = pma
+ NEED_CSV = csv1 csv2 csv3 csvodd
+ 
+ # Lists of tests that run a shell script
+-RUN_SHELL = exit fflush localenl modifiers next randtest rtlen rtlen01
++RUN_SHELL = exit fflush modifiers next randtest rtlen rtlen01
+ 
+ # List of the tests which fail with EXIT CODE 1
+ FAIL_CODE1 = \
+diff --git a/test/Makefile.in b/test/Makefile.in
+index 001a3e2..43e1c70 100644
+--- a/test/Makefile.in
++++ b/test/Makefile.in
+@@ -1006,8 +1006,6 @@ EXTRA_DIST = \
+ 	litoct.awk \
+ 	litoct.in \
+ 	litoct.ok \
+-	localenl.ok \
+-	localenl.sh \
+ 	longsub.awk \
+ 	longsub.in \
+ 	longsub.ok \
+@@ -1860,7 +1858,7 @@ BASIC_TESTS = \
+ 	zero2 zeroe0 zeroflag
+ 
+ UNIX_TESTS = \
+-	fflush getlnhd localenl pid pipeio1 pipeio2 poundbang rtlen rtlen01 \
++	fflush getlnhd pid pipeio1 pipeio2 poundbang rtlen rtlen01 \
+ 	space strftlng
+ 
+ GAWK_EXT_TESTS = \
+@@ -1980,7 +1978,7 @@ NEED_PMA = pma
+ NEED_CSV = csv1 csv2 csv3 csvodd
+ 
+ # Lists of tests that run a shell script
+-RUN_SHELL = exit fflush localenl modifiers next randtest rtlen rtlen01
++RUN_SHELL = exit fflush modifiers next randtest rtlen rtlen01
+ 
+ # List of the tests which fail with EXIT CODE 1
+ FAIL_CODE1 = \
+@@ -4541,11 +4539,6 @@ getlnhd:
+ 	@-AWKPATH="$(srcdir)" $(AWK) -f $@.awk  >_$@ 2>&1 || echo EXIT CODE: $$? >>_$@
+ 	@-$(CMP) "$(srcdir)"/$@.ok _$@ && rm -f _$@
+ 
+-localenl:
+-	@echo $@
+-	@-$(LOCALES) AWK="$(AWKPROG) $(GAWK_TEST_ARGS)" "$(srcdir)"/$@.sh  > _$@ 2>&1 || echo EXIT CODE: $$? >>_$@
+-	@-$(CMP) "$(srcdir)"/$@.ok _$@ && rm -f _$@
+-
+ rtlen:
+ 	@echo $@
+ 	@-$(LOCALES) AWK="$(AWKPROG) $(GAWK_TEST_ARGS)" "$(srcdir)"/$@.sh  > _$@ 2>&1 || echo EXIT CODE: $$? >>_$@
+diff --git a/vms/vmstest.com b/vms/vmstest.com
+index a042764..3da49e1 100644
+--- a/vms/vmstest.com
++++ b/vms/vmstest.com
+@@ -264,7 +264,7 @@ $		return
+ $!
+ $unix:
+ $unix_tests:	echo "unix_tests..."
+-$		list = "fflush getlnhd localenl pid pipeio1 pipeio2" -
++$		list = "fflush getlnhd pid pipeio1 pipeio2" -
+ 		  + " poundbang rtlen rtlen01 space strftlng"
+ $		gosub list_of_tests
+ $		return
+@@ -3417,24 +3417,6 @@ $	    gosub junit_report_fail_diff
+ $	endif
+ $	return
+ $
+-$localenl:	echo "localenl"
+-$	test_class = "unix_tests"
+-$	skip_reason = "Not supported."
+-$	gosub junit_report_skip
+-$	return
+-$!!localenl:	echo "localenl"
+-$	! localenl.com does not exist.
+-$	@localenl.com /Output=_localenl.tmp	! sh ./localenl.sh >tmp.
+-$	cmp localenl.ok sys$disk:[]_localenl.tmp
+-$	if $status
+-$	then
+-$	    rm _localenl.tmp;
+-$	    gosub junit_report_pass
+-$	else
+-$	    gosub junit_report_fail_diff
+-$	endif
+-$	return
+-$
+ $mbprintf1:	echo "''test'"
+ $	test_class = "charset_tests"
+ $! Makefile test exports this, but we don't want to impact user's environment

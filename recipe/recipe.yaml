@@ -12,7 +12,7 @@ source:
   - url: https://ftp.gnu.org/gnu/gawk/gawk-${{ version }}.tar.gz
     sha256: 8639a1a88fb411a1be02663739d03e902a6d313b5c6fe024d0bfeb3341a19a11
     patches:
-      - 0006-no-more-or-localenl.patch
+      - 0006-no-localenl.patch
       - if: osx
         then: 0007-osx-map-anonymous.patch
   - url: http://git.savannah.gnu.org/cgit/gawk.git/plain/bootstrap.sh?h=gawk-${{ version }}
@@ -31,6 +31,7 @@ requirements:
     - grep
     - make
     - sed
+    - util-linux
   host:
     - gettext
     - gmp
