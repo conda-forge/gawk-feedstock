@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: "5.4.0"
+
+package:
+  name: gawk
+  version: ${{ version }}
+
+source:
+  - url: https://ftp.gnu.org/gnu/gawk/gawk-${{ version }}.tar.gz
+    sha256: df5756d50772212a8e3f26d903107ece3773c4037c6a9e0a59c2a0a8d7329f0d
+    patches:
+    - if: osx
+      then: 0007-osx-map-anonymous.patch
+  - file_name: bootstrap.sh
+    url: http://git.savannah.gnu.org/cgit/gawk.git/plain/bootstrap.sh?h=gawk-${{ version }}
+    sha256: 6c147b67f361a44fd3a0b9709de06868f46c21c7b9b592212f05f633dd21d820
+
+build:
+  number: 0
+  skip: not unix
+  script:
+    # just sets some timestamps
+    - bash ./bootstrap.sh
+    - |-
+      bash ./configure \
+        --prefix="${PREFIX}" \
+        --with-mpfr="${PREFIX}" \
+        --with-readline="${PREFIX}"
+    - make -j${CPU_COUNT}
+    # presently skipped due to (likely) docker locale issues
+    # - make check
+    - make install
+    - make installcheck
+
+requirements:
+  build:
+    - ${{ compiler("c") }}
+    - ${{ stdlib("c") }}
+    - coreutils
+    - gnuconfig
+    - grep
+    - make
+    - sed
+  host:
+    - gettext
+    - gmp
+    - mpfr
+    - readline
+  run:
+    - gmp
+    - mpfr
+
+tests:
+  - script:
+      - gawk --version | grep -iE "${{ version | replace(".", "\\.") }}"
+      - gawk --help
+      - awk --version | grep -iE "${{ version | replace(".", "\\.") }}"
+      - awk --help
+
+about:
+  license: GPL-3.0-or-later
+  license_file: COPYING
+  summary: |
+    The awk utility interprets a special-purpose programming language that
+    makes it easy to handle simple data-reformatting jobs.
+  description: |
+    The GNU implementation of awk is called gawk; if you invoke it with the
+    proper options or environment variables, it is fully compatible with the
+    POSIX1 specification of the awk language and with the Unix version of awk
+    maintained by Brian Kernighan. This means that all properly written awk
+    programs should work with gawk. So most of the time, we don’t distinguish
+    between gawk and other awk implementations.
+  homepage: https://www.gnu.org/software/gawk
+  repository: http://savannah.gnu.org/projects/gawk
+  documentation: https://www.gnu.org/software/gawk/manual/gawk.html
+
+extra:
+  recipe-maintainers:
+    - bollwyvl
