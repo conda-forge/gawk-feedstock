@@ -12,15 +12,28 @@ source:
   - url: https://ftp.gnu.org/gnu/gawk/gawk-${{ version }}.tar.gz
     sha256: df5756d50772212a8e3f26d903107ece3773c4037c6a9e0a59c2a0a8d7329f0d
     patches:
-      - 0006-no-more-or-localenl.patch
-      - if: osx
-        then: 0007-osx-map-anonymous.patch
-  - url: http://git.savannah.gnu.org/cgit/gawk.git/plain/bootstrap.sh?h=gawk-${{ version }}
+    - if: osx
+      then: 0007-osx-map-anonymous.patch
+  - file_name: bootstrap.sh
+    url: http://git.savannah.gnu.org/cgit/gawk.git/plain/bootstrap.sh?h=gawk-${{ version }}
     sha256: 6c147b67f361a44fd3a0b9709de06868f46c21c7b9b592212f05f633dd21d820
 
 build:
   number: 0
-  skip: win
+  skip: not unix
+  script:
+    # just sets some timestamps
+    - bash ./bootstrap.sh
+    - |-
+      bash ./configure \
+        --prefix="${PREFIX}" \
+        --with-mpfr="${PREFIX}" \
+        --with-readline="${PREFIX}"
+    - make -j${CPU_COUNT}
+    # presently skipped due to (likely) docker locale issues
+    # - make check
+    - make install
+    - make installcheck
 
 requirements:
   build:
@@ -42,9 +55,9 @@ requirements:
 
 tests:
   - script:
-      - gawk --version
+      - gawk --version | grep -iE "${{ version | replace(".", "\\.") }}"
       - gawk --help
-      - awk --version
+      - awk --version | grep -iE "${{ version | replace(".", "\\.") }}"
       - awk --help
 
 about:
