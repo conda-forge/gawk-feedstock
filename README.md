@@ -3,15 +3,14 @@ About gawk-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gawk-feedstock/blob/main/LICENSE.txt)
 
-Home: https://www.gnu.org/software/gawk/
+Home: https://www.gnu.org/software/gawk
 
 Package license: GPL-3.0-or-later
 
 Summary: The awk utility interprets a special-purpose programming language that
 makes it easy to handle simple data-reformatting jobs.
 
-
-Development: http://savannah.gnu.org/projects/gawk/
+Development: http://savannah.gnu.org/projects/gawk
 
 Documentation: https://www.gnu.org/software/gawk/manual/gawk.html
 
@@ -21,7 +20,6 @@ POSIX1 specification of the awk language and with the Unix version of awk
 maintained by Brian Kernighan. This means that all properly written awk
 programs should work with gawk. So most of the time, we don’t distinguish
 between gawk and other awk implementations.
-
 
 Current build status
 ====================
