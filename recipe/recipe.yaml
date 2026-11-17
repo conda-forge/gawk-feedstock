@@ -19,7 +19,7 @@ source:
     sha256: 8aaf0cb1653e4c9535a906cf1cad04eb3f7877e554300139754dba48fb5f8bd2
 
 build:
-  number: 0
+  number: 1
   skip: not unix
   script:
     # just sets some timestamps
